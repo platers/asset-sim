@@ -11,5 +11,8 @@ class Grapher:
             x='Year',
             y='Assets',
             color='Strategy',
+        ).properties(
+            width=1000,
+            height=500
         )
         return chart
