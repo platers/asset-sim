@@ -10,16 +10,12 @@ from grapher import Grapher
 st.title('Asset Sim')
 
 assumptions = Assumptions()
+years = 40 # redefined below
 
 
 # Sidebar widgets
 
-annual_savings = st.sidebar.number_input('Annual savings', value=50_000, step=10_000)
-starting_amount = st.sidebar.number_input('Starting amount', value=10_000, step=10_000)
-years = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
-
-assumptions.ANNUAL_SAVINGS = annual_savings
-assumptions.STARTING_AMOUNT = starting_amount
+st.sidebar.title('Settings')
 default_strategy = All_in(assumptions)
 strategies = st.sidebar.multiselect(
     'Strategy',
@@ -35,7 +31,12 @@ strategies = st.sidebar.multiselect(
 if not strategies:
     strategies = [All_in(assumptions)]
 
+assumptions.ANNUAL_SAVINGS = st.sidebar.number_input('Annual savings', value=50_000, step=10_000)
+assumptions.STARTING_AMOUNT = st.sidebar.number_input('Starting amount', value=10_000, step=10_000)
+assumptions.EQUITY_RETURN_MEAN = st.sidebar.number_input('Annual return mean', value=.08, step=.01)
+assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard deviation', value=.12, step=.01)
 
+years = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
 
 
 
