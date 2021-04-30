@@ -10,6 +10,8 @@ class Strategy:
 class All_in(Strategy):
   name = 'All in'
   def annual_returns(self, year, assets):
+    if assets < 0:
+      return assets
     return assets * (1 + self.assumptions.annual_returns(year))
 
 class Leveraged(Strategy):
@@ -24,6 +26,8 @@ class Leveraged(Strategy):
     return max(0, self.assumptions.INTEREST_RATE * (self.leverage - 1) * assets)
 
   def annual_returns(self, year, assets):
+    if assets < 0:
+      return assets
     return assets * (1 + self.assumptions.annual_returns(year) * self.leverage) - self.borrowing_cost(assets)
 
 class Half_in(Leveraged):
@@ -58,6 +62,8 @@ class Lifecycle(Leveraged):
     return present_value
 
   def annual_returns(self, year, assets):
+    if assets < 0:
+      return assets
     target_exposure = self.samuelson_share * self.present_value(assets, year)
     exposure = min(target_exposure, assets * self.assumptions.MAX_LEVERAGE)
     self.leverage = max(0, exposure / assets)

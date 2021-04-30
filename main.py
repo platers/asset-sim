@@ -16,7 +16,7 @@ assumptions = Assumptions()
 
 annual_savings = st.sidebar.number_input('Annual savings', value=50_000, step=10_000)
 starting_amount = st.sidebar.number_input('Starting amount', value=10_000, step=10_000)
-years = st.sidebar.number_input('Years', value=40, step=10)
+years = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
 
 assumptions.ANNUAL_SAVINGS = annual_savings
 assumptions.STARTING_AMOUNT = starting_amount

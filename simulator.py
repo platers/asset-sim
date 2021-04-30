@@ -13,7 +13,6 @@ class Simulator:
                     data.append([year, strategy.name, assets, run])
                     assets = strategy.annual_returns(year, assets)
                     assets += strategy.assumptions.annual_savings(year)
-                    assets = max(assets, 1000) # bankruptcy
                     run_data.append(assets)
         
         df = pd.DataFrame(data, columns=columns)
