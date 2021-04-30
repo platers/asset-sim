@@ -6,7 +6,7 @@ class Assumptions:
     STARTING_AMOUNT = 10_000 # avoids divide by 0 errors
     EQUITY_RETURN_MEAN = 0.08
     EQUITY_RETURN_STD = 0.12
-    RRA = 1.2 # relative risk aversion, 1 is log utility
+    RRA = 2 # relative risk aversion, 1 is log utility
     ANNUAL_SAVINGS = 50_000
 
     def annual_savings(self, year): # this is a function for future extensibility
