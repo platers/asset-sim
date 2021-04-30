@@ -9,10 +9,16 @@ class Grapher:
     def graph(self, df):
         chart = alt.Chart(df).mark_line().encode(
             x='Year',
-            y='Assets',
+            y='mean(Assets)',
             color='Strategy',
         ).properties(
             width=1000,
             height=500
         )
-        return chart
+
+        band = alt.Chart(df).mark_errorband(extent='stdev').encode(
+            x='Year',
+            y=alt.Y('Assets'),
+            color='Strategy',
+        )
+        return chart + band

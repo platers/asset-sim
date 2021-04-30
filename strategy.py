@@ -18,7 +18,7 @@ class Leveraged(Strategy):
   def __init__(self, assumptions, leverage):
     Strategy.__init__(self, assumptions)
     self.leverage = leverage
-    self.name = 'Leveraged ' + str(leverage)
+    self.name = 'Leveraged {}x'.format(str(leverage))
 
   def borrowing_cost(self, assets):
     return max(0, self.assumptions.INTEREST_RATE * (self.leverage - 1) * assets)
