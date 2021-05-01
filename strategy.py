@@ -48,12 +48,12 @@ class Half_Kelly(Leveraged):
     self.name = 'Half Kelly {:.2}x'.format(leverage)
     
 class Lifecycle(Leveraged):
-  def __init__(self, assumptions, years, max_leverage, rra):
+  def __init__(self, assumptions, max_leverage, rra):
     Strategy.__init__(self, assumptions)
     self.name = 'Lifecycle, max-lev {}, RRA {}'.format(max_leverage, rra)
-    self.years = years
     self.max_leverage = max_leverage
     self.rra = rra
+    self.years = 0
 
     self.samuelson_share = (assumptions.EQUITY_RETURN_MEAN - assumptions.INTEREST_RATE) / (assumptions.EQUITY_RETURN_STD ** 2 * rra)
 

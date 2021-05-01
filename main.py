@@ -7,7 +7,7 @@ from strategy import *
 from simulator import Simulator
 from grapher import Grapher
 
-st.title('Asset Sim')
+st.title('Asset Sim (alpha release)')
 
 assumptions = Assumptions()
 years = 40 # redefined below
@@ -24,10 +24,8 @@ strategies = st.sidebar.multiselect(
      Kelly(assumptions),
      Half_Kelly(assumptions),
      Half_in(assumptions),
-     Lifecycle(assumptions, years, 3, 3),
-     Lifecycle(assumptions, years, 3, 2),
-     Lifecycle(assumptions, years, 3, 1),
-     Lifecycle(assumptions, years, 2, 2)),
+     Lifecycle(assumptions, 3, 2),
+     Lifecycle(assumptions, 3, 1)),
     format_func=lambda s : s.name,
     default=[default_strategy]
 )
@@ -66,12 +64,16 @@ st.markdown('''
     ### What do the strategies do?
     The strategies with a number after the name are leveraged by that amount. For example, 0.5x means you invest half of your current assets while 2x means you invest double your current assets.
 
-    Lifecycle is described in "Lifecycle Investing" by Ian Ayres, Barry Nalebuff. It takes more leverage early and less later. It limits leverage to 3x and assumes a RRA of 2.
+    Kelly and half Kelly are leveraged strategies calculated according to the Kelly criterion.
+
+    Lifecycle is described in "Lifecycle Investing" by Ian Ayres, Barry Nalebuff. It takes more leverage early and less later. 
+    Relative risk aversion(RRA) is a measure of an investors risk tolerance. RRA of 1 is log utility, higher is more risk averse. 
+
 
     ### Why can't I change X?
     Asset sim prioritizes a simple interface with the minimum required parameters to be useful for financial planning. 
     If you believe there is an essential feature missing, you can raise an issue on [github](https://github.com/platers/asset-sim), or better yet, submit a pull request!
 
     ### Are there bugs?
-    Possibly, this tool hasn't been well tested yet.
+    Possibly, this tool hasn't been well tested yet. If you find any, please submit an issue on [github](https://github.com/platers/asset-sim).
 ''')

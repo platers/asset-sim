@@ -8,6 +8,7 @@ class Simulator:
         columns = ['Year', 'Strategy', 'Assets', 'Run']
         data = []
         for strategy in strategies:
+            strategy.years = years
             for run in range(runs):
                 assets = strategy.assumptions.STARTING_AMOUNT
                 run_data = []
