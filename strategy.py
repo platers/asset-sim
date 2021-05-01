@@ -8,7 +8,7 @@ class Strategy:
     pass
 
 class All_in(Strategy):
-  name = 'All in'
+  name = 'All in 1x'
   def annual_returns(self, year, assets):
     if assets < 0:
       return assets
@@ -33,7 +33,7 @@ class Leveraged(Strategy):
 class Half_in(Leveraged):
   def __init__(self, assumptions):
     Leveraged.__init__(self, assumptions, 1 / 2)
-    self.name = 'Half in'
+    self.name = 'Half in 0.5x'
 
 class Kelly(Leveraged):
   def __init__(self, assumptions):

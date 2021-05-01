@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
+import streamlit as st
 
 class Simulator:
+    @st.cache
     def simulate(self, years, strategies, runs=200):
         columns = ['Year', 'Strategy', 'Assets', 'Run']
         data = []

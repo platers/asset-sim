@@ -4,8 +4,8 @@ class Assumptions:
     MAX_LEVERAGE = 3 # maximum leverage at any time
     INTEREST_RATE = 0.015 # cost of borrowing money
     STARTING_AMOUNT = 10_000 # avoids divide by 0 errors
-    EQUITY_RETURN_MEAN = 0.08
-    EQUITY_RETURN_STD = 0.12
+    EQUITY_RETURN_MEAN = 0.11
+    EQUITY_RETURN_STD = 0.20
     RRA = 2 # relative risk aversion, 1 is log utility
     ANNUAL_SAVINGS = 50_000
 
