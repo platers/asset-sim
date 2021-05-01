@@ -24,7 +24,10 @@ strategies = st.sidebar.multiselect(
      Kelly(assumptions),
      Half_Kelly(assumptions),
      Half_in(assumptions),
-     Lifecycle(assumptions, years)),
+     Lifecycle(assumptions, years, 3, 3),
+     Lifecycle(assumptions, years, 3, 2),
+     Lifecycle(assumptions, years, 3, 1),
+     Lifecycle(assumptions, years, 2, 2)),
     format_func=lambda s : s.name,
     default=[default_strategy]
 )
@@ -38,10 +41,6 @@ assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard 
 assumptions.INTEREST_RATE = st.sidebar.number_input('Annual interest rate (only for leveraged strategies)', value=.02, step=.01)
 
 years = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
-
-with st.sidebar.beta_expander('Lifecycle'):
-    assumptions.RRA = st.number_input('Relative risk aversion', value=2.0, step=0.5, min_value=0.0)
-    assumptions.MAX_LEVERAGE = st.number_input('Maximum Leverage', value=3.0, step=0.5, min_value=0.0)
 
 
 
