@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-from matplotlib.collections import LineCollection
 import pandas as pd
 import numpy as np
 import altair as alt
