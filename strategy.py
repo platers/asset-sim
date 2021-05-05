@@ -48,18 +48,15 @@ class Half_Kelly(Leveraged):
     self.name = 'Half Kelly {:.2}x'.format(leverage)
     
 class Lifecycle(Leveraged):
-  def __init__(self, assumptions, max_leverage, rra):
+  def __init__(self, assumptions):
     Strategy.__init__(self, assumptions)
-    self.name = 'Lifecycle, max-lev {}, RRA {}'.format(max_leverage, rra)
-    self.max_leverage = max_leverage
-    self.rra = rra
-    self.years = 0
-
-    self.samuelson_share = (assumptions.EQUITY_RETURN_MEAN - assumptions.INTEREST_RATE) / (assumptions.EQUITY_RETURN_STD ** 2 * rra)
+    #self.name = 'Lifecycle, max-lev {}, RRA {}'.format(assumptions.MAX_LEVERAGE, assumptions.RRA)
+    self.name = 'Lifecycle'
+    self.samuelson_share = (assumptions.EQUITY_RETURN_MEAN - assumptions.INTEREST_RATE) / (assumptions.EQUITY_RETURN_STD ** 2 * assumptions.RRA)
 
   def present_value(self, assets, start_year):
     present_value = assets
-    for year in range(start_year, self.years):
+    for year in range(start_year, self.assumptions.YEARS):
       present_value += self.assumptions.annual_savings(year) / ((1 + self.assumptions.INTEREST_RATE) ** year)
     return present_value
 
@@ -67,6 +64,6 @@ class Lifecycle(Leveraged):
     if assets < 0:
       return assets
     target_exposure = self.samuelson_share * self.present_value(assets, year)
-    exposure = min(target_exposure, assets * self.max_leverage)
+    exposure = min(target_exposure, assets * self.assumptions.MAX_LEVERAGE)
     self.leverage = max(0, exposure / assets)
     return assets + exposure * self.assumptions.annual_returns(year) - self.borrowing_cost(assets)

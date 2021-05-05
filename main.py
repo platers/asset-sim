@@ -24,8 +24,7 @@ strategies = st.sidebar.multiselect(
      Kelly(assumptions),
      Half_Kelly(assumptions),
      Half_in(assumptions),
-     Lifecycle(assumptions, 3, 2),
-     Lifecycle(assumptions, 3, 1)),
+     Lifecycle(assumptions)),
     format_func=lambda s : s.name,
     default=[default_strategy]
 )
@@ -37,10 +36,18 @@ assumptions.STARTING_AMOUNT = st.sidebar.number_input('Starting amount', value=1
 assumptions.EQUITY_RETURN_MEAN = st.sidebar.number_input('Annual return mean', value=.11, step=.01)
 assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard deviation', value=.20, step=.01, min_value=0.0)
 assumptions.INTEREST_RATE = st.sidebar.number_input('Annual interest rate (only for leveraged strategies)', value=.02, step=.01)
+assumptions.YEARS = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
 
-years = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
+with st.sidebar.beta_expander('Lifecycle'):
+    assumptions.MAX_LEVERAGE = st.number_input('Max leveraage', value=3.0, step=1.0, min_value=0.0)
+    assumptions.RRA = st.number_input('RRA', value=2.0, step=1.0, min_value=0.1)
 
-
+# re initialize strategies based on user defined parameters
+for i in range(len(strategies)):
+    s = strategies[i]
+    if type(s) is Lifecycle:
+        s = Lifecycle(assumptions)
+    strategies[i] = s
 
 sim = Simulator()
 df = sim.simulate(years, strategies, runs=200)

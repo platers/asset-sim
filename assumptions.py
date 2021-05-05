@@ -8,6 +8,7 @@ class Assumptions:
     EQUITY_RETURN_STD = 0.20
     RRA = 2 # relative risk aversion, 1 is log utility
     ANNUAL_SAVINGS = 50_000
+    YEARS = 40
 
     def annual_savings(self, year): # this is a function for future extensibility
         return self.ANNUAL_SAVINGS
