@@ -7,11 +7,8 @@ from strategy import *
 from simulator import Simulator
 from grapher import Grapher
 
-st.title('Asset Sim (alpha release)')
 
 assumptions = Assumptions()
-years = 40 # redefined below
-
 
 # Sidebar widgets
 
@@ -20,7 +17,6 @@ default_strategy = All_in(assumptions)
 strategies = st.sidebar.multiselect(
     'Strategy',
     (default_strategy,
-     Leveraged(assumptions, 2),
      Kelly(assumptions),
      Half_Kelly(assumptions),
      Half_in(assumptions),
@@ -31,10 +27,11 @@ strategies = st.sidebar.multiselect(
 if not strategies:
     strategies = [All_in(assumptions)]
 
-assumptions.ANNUAL_SAVINGS = st.sidebar.number_input('Annual savings', value=50_000, step=10_000)
 assumptions.STARTING_AMOUNT = st.sidebar.number_input('Starting amount', value=10_000, step=10_000)
-assumptions.EQUITY_RETURN_MEAN = st.sidebar.number_input('Annual return mean', value=.11, step=.01)
-assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard deviation', value=.20, step=.01, min_value=0.0)
+assumptions.ANNUAL_SAVINGS = st.sidebar.number_input('Annual savings', help='Net amount added to assets each year. Can be negative.', value=50_000, step=10_000)
+#assumptions.SAVINGS_YEARS = st.sidebar.number_input('Years of savings', value=40, step=10, min_value=0)
+assumptions.EQUITY_RETURN_MEAN = st.sidebar.number_input('Annual return mean', help='The average expected returns each year', value=.11, step=.01)
+assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard deviation', help='How random the returns are', value=.20, step=.01, min_value=0.0)
 assumptions.INTEREST_RATE = st.sidebar.number_input('Annual interest rate (only for leveraged strategies)', value=.02, step=.01)
 assumptions.YEARS = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
 
@@ -44,17 +41,16 @@ with st.sidebar.beta_expander('Lifecycle'):
 
 # re initialize strategies based on user defined parameters
 for i in range(len(strategies)):
-    s = strategies[i]
-    if type(s) is Lifecycle:
-        s = Lifecycle(assumptions)
+    s = strategies[i].__class__(assumptions)
     strategies[i] = s
 
 sim = Simulator()
-df = sim.simulate(years, strategies, runs=200)
+df = sim.simulate(assumptions.YEARS, strategies, runs=400)
 
 gr = Grapher()
 chart = gr.graph(df)
 st.altair_chart(chart)
+st.title('Asset Sim (alpha release)')
 
 st.markdown('''
     ## FAQ

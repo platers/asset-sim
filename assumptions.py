@@ -9,9 +9,12 @@ class Assumptions:
     RRA = 2 # relative risk aversion, 1 is log utility
     ANNUAL_SAVINGS = 50_000
     YEARS = 40
+    SAVINGS_YEARS = np.inf
 
     def annual_savings(self, year): # this is a function for future extensibility
-        return self.ANNUAL_SAVINGS
+        if year < self.SAVINGS_YEARS:
+            return self.ANNUAL_SAVINGS
+        return 0
 
     def annual_returns(self, year):
         # https://towardsdatascience.com/are-stock-returns-normally-distributed-e0388d71267e
