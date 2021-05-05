@@ -15,7 +15,7 @@ class Simulator:
                     assets = strategy.annual_returns(year, assets)
                     assets += strategy.assumptions.annual_savings(year)
                     if assumptions.BANKRUPTCY:
-                        assets = max(assets, 0)
+                        assets = max(assets, 10)
                     run_data.append(assets)
         
         df = pd.DataFrame(data, columns=columns)
