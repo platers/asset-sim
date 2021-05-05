@@ -10,6 +10,7 @@ class Assumptions:
     ANNUAL_SAVINGS = 50_000
     YEARS = 40
     SAVINGS_YEARS = np.inf
+    BANKRUPTCY = False
 
     def annual_savings(self, year): # this is a function for future extensibility
         if year < self.SAVINGS_YEARS:
