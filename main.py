@@ -21,7 +21,7 @@ strategies = st.sidebar.multiselect(
      Half_Kelly(assumptions),
      Half_in(assumptions),
      Lifecycle(assumptions)),
-    format_func=lambda s : s.name,
+    format_func=lambda s : s.select_name if s.select_name else s.name,
     default=[default_strategy]
 )
 if not strategies:

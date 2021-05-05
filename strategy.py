@@ -1,5 +1,6 @@
 class Strategy:
   name = 'Strategy name'
+  select_name = ''
 
   def __init__(self, assumptions):
     self.assumptions = assumptions
@@ -40,12 +41,14 @@ class Kelly(Leveraged):
     leverage = (assumptions.EQUITY_RETURN_MEAN - assumptions.INTEREST_RATE) / (assumptions.EQUITY_RETURN_STD ** 2)
     Leveraged.__init__(self, assumptions, leverage)
     self.name = 'Kelly {:.2}x'.format(leverage)
+    self.select_name = 'Kelly'
 
 class Half_Kelly(Leveraged):
   def __init__(self, assumptions):
     leverage = (assumptions.EQUITY_RETURN_MEAN - assumptions.INTEREST_RATE) / (assumptions.EQUITY_RETURN_STD ** 2) / 2
     Leveraged.__init__(self, assumptions, leverage)
     self.name = 'Half Kelly {:.2}x'.format(leverage)
+    self.select_name = 'Half Kelly'
     
 class Lifecycle(Leveraged):
   def __init__(self, assumptions):
