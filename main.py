@@ -22,7 +22,8 @@ strategies = st.sidebar.multiselect(
      Half_in(assumptions),
      Lifecycle(assumptions)),
     format_func=lambda s : s.select_name if s.select_name else s.name,
-    default=[default_strategy]
+    default=[default_strategy],
+    help='Select strategies to test. See FAQ for details'
 )
 if not strategies:
     strategies = [All_in(assumptions)]
@@ -30,11 +31,11 @@ if not strategies:
 assumptions.STARTING_AMOUNT = st.sidebar.number_input('Starting amount', value=10_000, step=10_000)
 assumptions.ANNUAL_SAVINGS = st.sidebar.number_input('Annual savings', help='Net amount added to assets each year. Can be negative.', value=50_000, step=10_000)
 #assumptions.SAVINGS_YEARS = st.sidebar.number_input('Years of savings', value=40, step=10, min_value=0)
-assumptions.EQUITY_RETURN_MEAN = st.sidebar.number_input('Annual return mean', help='The average expected returns each year', value=.11, step=.01)
-assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard deviation', help='How random the returns are', value=.20, step=.01, min_value=0.0)
-assumptions.INTEREST_RATE = st.sidebar.number_input('Annual interest rate (only for leveraged strategies)', value=.02, step=.01)
+assumptions.EQUITY_RETURN_MEAN = st.sidebar.number_input('Annual return mean', help='The average increase of investments each year', value=.08, step=.01)
+assumptions.EQUITY_RETURN_STD = st.sidebar.number_input('Annual return standard deviation', help='How much returns tend to deviate from the mean', value=.15, step=.01, min_value=0.0)
+assumptions.INTEREST_RATE = st.sidebar.number_input('Annual interest rate', help='The cost of borrowing money (only used in leveraged strategies)', value=.02, step=.01)
 assumptions.YEARS = st.sidebar.number_input('Years', value=40, step=10, min_value=1)
-assumptions.BANKRUPTCY = st.sidebar.checkbox('Enable bankruptcy', help='Assets cannot go below 0')
+assumptions.BANKRUPTCY = st.sidebar.checkbox('Enable bankruptcy', help='Prevent assets going below 0')
 
 with st.sidebar.beta_expander('Lifecycle'):
     assumptions.MAX_LEVERAGE = st.number_input('Max leveraage', value=3.0, step=1.0, min_value=0.0)

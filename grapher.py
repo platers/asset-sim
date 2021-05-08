@@ -52,4 +52,5 @@ class Grapher:
         chart = alt.layer(
             line, band, selectors, points, rules, text
         )
+        chart.layer[0].encoding.y.title = 'Assets'
         return chart
