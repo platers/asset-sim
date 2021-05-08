@@ -55,23 +55,24 @@ st.altair_chart(chart)
 st.title('Asset Sim (alpha release)')
 
 st.markdown('''
+    Asset Sim is a tool to visualize long term investing strategies. Quickly simulate different strategies and market assumptions to see how they affect your finances.
     ## FAQ
     ### How is the graph generated?
-    This tool uses a monte carlo simulation. It simulates many runs and aggegates them together. 
+    A monte-carlo simulation simulates many runs with the given assumptions and aggegates them together. 
     The lines are the median amounts of assets at a point in time. The error bands show first and third quartiles.
 
     ### Why median?
     Medians are less sensitive to outliers than means. A few lucky runs can blow up a mean.
 
     ### Where do the default values come from?
-    They are best guesses based on historical data. The return values are based on the S&P 500.
+    They are best guesses based on historical data of the S&P 500.
 
     ### What do the strategies do?
     The strategies with a number after the name are leveraged by that amount. For example, 0.5x means you invest half of your current assets while 2x means you invest double your current assets.
 
-    Kelly and half Kelly are leveraged strategies calculated according to the Kelly criterion.
+    Kelly and half Kelly are leveraged strategies calculated according to the [Kelly criterion](https://en.wikipedia.org/wiki/Kelly_criterion).
 
-    Lifecycle is described in "Lifecycle Investing" by Ian Ayres, Barry Nalebuff. It takes more leverage early and less later. 
+    Lifecycle is described in [Lifecycle Investing](http://www.lifecycleinvesting.net/) by Ian Ayres, Barry Nalebuff. It takes more leverage early and less later. 
     Relative risk aversion(RRA) is a measure of an investors risk tolerance. RRA of 1 is log utility, higher is more risk averse. 
 
 
