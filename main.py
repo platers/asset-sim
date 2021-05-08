@@ -52,7 +52,7 @@ df = sim.simulate(assumptions, strategies, runs=400)
 gr = Grapher()
 chart = gr.graph(df)
 st.altair_chart(chart)
-st.title('Asset Sim (alpha release)')
+st.title('Asset Sim')
 
 st.markdown('''
     Asset Sim is a tool to visualize long term investing strategies. Quickly simulate different strategies and market assumptions to see how they affect your finances.
